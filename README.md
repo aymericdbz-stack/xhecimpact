@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# x-hec impact platform
 
-## Getting Started
+A Next.js 14 (App Router) application for the Master X-HEC Entrepreneurs student association. The site highlights upcoming events, including the impact hackathon, and provides a gated application flow powered by Supabase auth and database.
 
-First, run the development server:
+## key features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- landing page with categories grid and hero CTA leading to the impact hackathon
+- hackathon detail page with organizers, participants preview, and conditional application card
+- magic link authentication with email verification gate before form access
+- application form validated with zod and routed through a secured Supabase API handler
+- account dashboard listing the authenticated user's submissions
+- tailwind CSS with shadcn/ui components (button, card, input, select, badge, avatar, textarea, dropdown menu, dialog, toast)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## local setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **install dependencies**
+   ```bash
+   npm install
+   ```
+2. **configure environment**
+   Create a `.env.local` file using the provided `.env.example` template and supply:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=your-project-url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+   NEXT_PUBLIC_SITE_URL=http://localhost:3000 # optional but recommended for auth redirects
+   ```
+   Ensure the Supabase project has an email confirmation policy enabled and a `subscription` table matching the expected schema.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **start the development server**
+   ```bash
+   npm run dev
+   ```
+   Visit [http://localhost:3000](http://localhost:3000) to explore the experience.
 
-## Learn More
+## scripts
 
-To learn more about Next.js, take a look at the following resources:
+- `npm run dev` – start the development server
+- `npm run lint` – run ESLint across the project
+- `npm run build` / `npm run start` – production build and serve
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## supabase notes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- the API route at `/api/subscribe` enforces a single application per user per event slug (`impact-hackathon-13-dec`)
+- email verification is required before the form submission is accepted; resend is available from the apply card
+- update the `subscription` table to include optional `status` values if you want richer dashboard labels
 
-## Deploy on Vercel
+## deployment checklist
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- set the environment variables (same as `.env.local`) on the hosting platform
+- configure Supabase auth redirect to `<site-url>/auth/callback`
+- allow `images.unsplash.com` as an external domain if using Next.js image optimization
