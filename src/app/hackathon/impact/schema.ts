@@ -29,7 +29,7 @@ export const registrationSchema = z
       .min(1, "Merci de confirmer votre email.")
       .email("Merci d’indiquer un email valide."),
     profile: z.enum(profiles, {
-      errorMap: () => ({ message: "Sélectionnez un profil." }),
+      message: "Sélectionnez un profil.",
     }),
     motivation: z
       .string()
