@@ -84,14 +84,20 @@ export async function POST(request: Request) {
     const count = await getSubscriptionCount(eventSlug);
 
     const applicantName = `${data.firstName} ${data.lastName}`.trim();
+    const firstName = data.firstName.trim();
+    const safeFirstName = firstName.length > 0 ? firstName : "";
+    const mirrorUrl =
+      process.env.SITE_PUBLIC_URL ??
+      "https://x-hec-impact.fr/hackathon/impact";
+
     const textContent =
-      "Merci ! Nous avons bien reçu votre demande d’inscription. Vous recevrez un email de validation. Le délai moyen est de 3 jours pour savoir si l’inscription est validée par les organisateurs.";
+      "Merci ! Votre inscription au Hackathon Impact est confirmée : rendez-vous samedi 13 décembre de 08:00 à 20:00 à la Climate House, Paris.";
+
     const htmlContent = `<!doctype html>
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Welcome {{contact.PRENOM | default : ''}}</title>
 
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif&family=Open+Sans&family=Roboto&family=Inter&family=Inter+Tight" rel="stylesheet" />
   <style>
@@ -166,7 +172,7 @@ export async function POST(request: Request) {
       <tr>
         <td style="padding:5px 30px; text-align:center;">
           <p style="margin:0; font-family: Arial, Helvetica, sans-serif; font-size:12px; color:#858588;">
-            <a class="text-link" href="{{ mirror }}" target="_blank" style="color:#858588; text-decoration:underline;">Afficher dans le navigateur</a>
+            <a class="text-link" href="${mirrorUrl}" target="_blank" style="color:#858588; text-decoration:underline;">Afficher dans le navigateur</a>
           </p>
         </td>
       </tr>
