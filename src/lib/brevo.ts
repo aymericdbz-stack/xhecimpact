@@ -5,6 +5,7 @@ interface SendBrevoEmailParams {
   subject: string;
   textContent: string;
   htmlContent?: string;
+  replyTo?: { email: string; name?: string };
 }
 
 export async function sendBrevoEmail({
@@ -12,6 +13,7 @@ export async function sendBrevoEmail({
   subject,
   textContent,
   htmlContent,
+  replyTo,
 }: SendBrevoEmailParams) {
   const apiKey = process.env.BREVO_API_KEY;
   const senderEmail = process.env.BREVO_SENDER_EMAIL;
@@ -33,7 +35,8 @@ export async function sendBrevoEmail({
       to,
       subject,
       textContent,
-      htmlContent: htmlContent ?? textContent,
+      htmlContent: htmlContent ?? `<p>${textContent}</p>`,
+      replyTo,
     }),
   });
 

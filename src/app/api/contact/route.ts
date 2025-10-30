@@ -30,6 +30,7 @@ export async function POST(request: Request) {
       subject: "Nouveau message – Contactez-nous",
       textContent: `Nouvelle demande de contact depuis le site x-hec impact.\nAdresse email : ${visitorEmail}`,
       htmlContent: `<p>Nouvelle demande de contact depuis le site x-hec impact.</p><p><strong>Email :</strong> ${visitorEmail}</p>`,
+      replyTo: { email: visitorEmail },
     });
 
     return NextResponse.json({ ok: true });

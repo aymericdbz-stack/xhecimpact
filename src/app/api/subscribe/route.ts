@@ -83,11 +83,29 @@ export async function POST(request: Request) {
 
     const count = await getSubscriptionCount(eventSlug);
 
+    const applicantName = `${data.firstName} ${data.lastName}`.trim();
+    const textContent =
+      "Merci ! Nous avons bien reçu votre demande d’inscription. Vous recevrez un email de validation. Le délai moyen est de 3 jours pour savoir si l’inscription est validée par les organisateurs.";
+    const htmlContent = `
+      <p>Bonjour ${data.firstName.trim()} 👋</p>
+      <p>Merci ! Nous avons bien reçu votre demande d’inscription au Hackathon Impact.</p>
+      <p>Notre équipe vous enverra un email de confirmation sous 3 jours ouvrés pour valider votre participation.</p>
+      <hr />
+      <p><strong>Résumé de votre candidature :</strong></p>
+      <ul>
+        <li>Prénom : ${data.firstName.trim()}</li>
+        <li>Nom : ${data.lastName.trim()}</li>
+        <li>Email : ${normalizedEmail}</li>
+        <li>Profil : ${data.profile}</li>
+      </ul>
+      <p style="margin-top:16px;">À très vite,<br/>L’équipe x-hec impact</p>
+    `;
+
     await sendBrevoEmail({
-      to: [{ email: normalizedEmail, name: `${data.firstName} ${data.lastName}`.trim() }],
+      to: [{ email: normalizedEmail, name: applicantName }],
       subject: "Confirmation de demande d’inscription – Hackathon Impact",
-      textContent:
-        "Merci ! Nous avons bien reçu votre demande d’inscription. Vous recevrez un email de validation. Le délai moyen est de 3 jours pour savoir si l’inscription est validée par les organisateurs.",
+      textContent,
+      htmlContent,
     });
 
     return NextResponse.json({ ok: true, count });
