@@ -1,74 +1,101 @@
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { z } from "zod";
 
-import { applicationSchema } from "@/app/hackathon/impact/schema";
+import { countWords, profiles } from "@/app/hackathon/impact/schema";
+import { sendBrevoEmail } from "@/lib/brevo";
+import { createSupabaseAdminClient, getSubscriptionCount } from "@/lib/supabase/admin";
 
 const EVENT_SLUG = "impact-hackathon-13-dec";
 
+const requestSchema = z.object({
+  eventSlug: z.string().optional(),
+  firstName: z.string().trim().min(1),
+  lastName: z.string().trim().min(1),
+  email: z.string().trim().email(),
+  profile: z.enum(profiles),
+  motivation: z.string().trim().min(1),
+});
+
 export async function POST(request: Request) {
-  const supabase = createRouteHandlerClient({ cookies });
-  const {
-    data: { user },
-    error: userError,
-  } = await supabase.auth.getUser();
+  try {
+    const payload = await request.json().catch(() => null);
 
-  if (userError || !user) {
-    return NextResponse.json({ message: "authentication required" }, { status: 401 });
+    if (!payload) {
+      return NextResponse.json({ message: "Requête invalide." }, { status: 400 });
+    }
+
+    const parsed = requestSchema.safeParse(payload);
+
+    if (!parsed.success) {
+      const firstIssue = parsed.error.issues.at(0);
+      return NextResponse.json(
+        { message: firstIssue?.message ?? "Les données sont invalides." },
+        { status: 400 },
+      );
+    }
+
+    const data = parsed.data;
+    const eventSlug = data.eventSlug ?? EVENT_SLUG;
+
+    if (eventSlug !== EVENT_SLUG) {
+      return NextResponse.json({ message: "Événement inconnu." }, { status: 400 });
+    }
+
+    const trimmedMotivation = data.motivation.trim();
+
+    if (countWords(trimmedMotivation) > 100) {
+      return NextResponse.json({ message: "La motivation doit contenir au maximum 100 mots." }, { status: 400 });
+    }
+
+    const adminClient = createSupabaseAdminClient();
+    const normalizedEmail = data.email.toLowerCase();
+
+    const { data: existing, error: existingError } = await adminClient
+      .from("subscription")
+      .select("id")
+      .eq("event_slug", eventSlug)
+      .eq("email", normalizedEmail)
+      .maybeSingle();
+
+    if (existingError) {
+      console.error(existingError);
+      return NextResponse.json({ message: "Erreur lors de la vérification de l’inscription." }, { status: 500 });
+    }
+
+    if (existing) {
+      const count = await getSubscriptionCount(eventSlug);
+      return NextResponse.json({ ok: false, count }, { status: 409 });
+    }
+
+    const { error: insertError } = await adminClient.from("subscription").insert({
+      event_slug: eventSlug,
+      first_name: data.firstName.trim(),
+      last_name: data.lastName.trim(),
+      email: normalizedEmail,
+      profile: data.profile,
+      motivation: trimmedMotivation,
+    });
+
+    if (insertError) {
+      console.error(insertError);
+      return NextResponse.json({ message: "Impossible d’enregistrer la candidature." }, { status: 500 });
+    }
+
+    const count = await getSubscriptionCount(eventSlug);
+
+    await sendBrevoEmail({
+      to: [{ email: normalizedEmail, name: `${data.firstName} ${data.lastName}`.trim() }],
+      subject: "Confirmation de demande d’inscription – Hackathon Impact",
+      textContent:
+        "Merci ! Nous avons bien reçu votre demande d’inscription. Vous recevrez un email de validation. Le délai moyen est de 3 jours pour savoir si l’inscription est validée par les organisateurs.",
+    });
+
+    return NextResponse.json({ ok: true, count });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { message: "Erreur inattendue lors du traitement de la candidature." },
+      { status: 500 },
+    );
   }
-
-  const emailVerified = Boolean(
-    user.email_confirmed_at ||
-      user.identities?.some((identity) => identity.provider === "email" && identity.last_sign_in_at),
-  );
-
-  if (!emailVerified) {
-    return NextResponse.json({ message: "please verify your email before applying" }, { status: 403 });
-  }
-
-  const body = await request.json().catch(() => null);
-
-  if (!body) {
-    return NextResponse.json({ message: "invalid request payload" }, { status: 400 });
-  }
-
-  const parsed = applicationSchema.safeParse(body);
-
-  if (!parsed.success) {
-    const firstIssue = parsed.error.issues[0];
-    return NextResponse.json({ message: firstIssue?.message ?? "invalid form data" }, { status: 400 });
-  }
-
-  const data = parsed.data;
-
-  if (data.email.toLowerCase() !== (user.email ?? "").toLowerCase()) {
-    return NextResponse.json({ message: "email does not match authenticated user" }, { status: 400 });
-  }
-
-  const { data: existing } = await supabase
-    .from("subscription")
-    .select("id")
-    .eq("user_id", user.id)
-    .eq("event_slug", EVENT_SLUG)
-    .maybeSingle();
-
-  if (existing) {
-    return NextResponse.json({ message: "application already submitted" }, { status: 409 });
-  }
-
-  const { error } = await supabase.from("subscription").insert({
-    user_id: user.id,
-    event_slug: EVENT_SLUG,
-    first_name: data.firstName.trim(),
-    last_name: data.lastName.trim(),
-    email: user.email,
-    profile: data.profile,
-    motivation: data.motivation.trim(),
-  });
-
-  if (error) {
-    return NextResponse.json({ message: error.message }, { status: 500 });
-  }
-
-  return NextResponse.json({ message: "application saved" }, { status: 200 });
 }

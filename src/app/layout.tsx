@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "x-hec impact",
   description:
-    "A student collective from the Master X-HEC Entrepreneurs at HEC showcasing high-impact initiatives.",
+    "Collectif du Master Entrepreneur X-HEC qui met en lumière les initiatives à impact social et environnemental.",
 };
 
 export default async function RootLayout({
@@ -34,9 +34,9 @@ export default async function RootLayout({
   } = await supabase.auth.getSession();
 
   return (
-    <html lang="en">
+    <html lang="fr">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-muted/30 text-foreground`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50 text-foreground`}
       >
         <SupabaseProvider session={session}>
           <div className="flex min-h-screen flex-col">

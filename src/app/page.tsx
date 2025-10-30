@@ -1,129 +1,87 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-
-const categories = [
-  { label: "tech", description: "low-carbon tools and data" , icon: "💡"},
-  { label: "arts & culture", description: "creative voices for impact", icon: "🎨" },
-  { label: "well-being", description: "care for people & planet", icon: "🌱" },
-  { label: "social innovation", description: "new models for change", icon: "🛠️" },
-  { label: "impact investing", description: "finance that serves purpose", icon: "💶" },
-  { label: "climate", description: "resilience for a warming world", icon: "🌍" },
-  { label: "education", description: "learning that empowers", icon: "📚" },
-  { label: "community", description: "local action, global ties", icon: "🤝" },
-];
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function HomePage() {
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-20 px-4 py-16 sm:px-6 lg:py-20">
-      <section className="grid items-center gap-12 rounded-3xl border border-border/80 bg-card/70 p-8 shadow-sm backdrop-blur-sm md:p-12 lg:grid-cols-[1.4fr_minmax(0,1fr)]">
-        <div className="space-y-6">
-          <Badge variant="secondary" className="rounded-full px-4 py-1 text-xs uppercase tracking-wide">
-            high-impact student projects
-          </Badge>
-          <div className="space-y-4">
-            <h1 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
-              discover events
-            </h1>
-            <p className="max-w-xl text-base text-muted-foreground sm:text-lg">
-              we curate gatherings and experiments sparked by the Master X-HEC Entrepreneurs community to move the social and environmental needle.
-            </p>
-          </div>
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg" className="rounded-full px-6">
-              <Link href="/hackathon/impact">view the hackathon</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="rounded-full px-6">
-              <Link href="#about">about us</Link>
-            </Button>
-          </div>
-        </div>
-        <Card className="border-none bg-background/70 shadow-inner">
-          <CardHeader>
-            <CardTitle className="text-sm font-medium text-muted-foreground">
-              next highlight
-            </CardTitle>
-            <CardDescription className="text-xs uppercase tracking-[0.2em] text-muted-foreground/80">
-              saturday 13 december
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <p className="text-sm font-medium text-muted-foreground">impact hackathon at HEC</p>
-              <p className="text-sm text-muted-foreground">
-                co-design solutions for campus-wide sustainability challenges with mentors from the X-HEC impact ecosystem.
-              </p>
-            </div>
-            <div className="flex items-center justify-between rounded-2xl bg-muted/70 px-4 py-3 text-sm text-muted-foreground">
-              <span>14:00 - 18:00 · Jouy-en-Josas</span>
-              <Button asChild size="sm" className="rounded-full">
-                <Link href="/hackathon/impact">join us</Link>
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      </section>
-
-      <section className="space-y-6" aria-labelledby="categories-heading">
-        <div className="flex items-end justify-between gap-4">
-          <div className="space-y-2">
-            <h2 id="categories-heading" className="text-2xl font-semibold tracking-tight">explore by theme</h2>
-            <p className="text-sm text-muted-foreground">
-              browse the experiences we run across the academic year.
-            </p>
-          </div>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {categories.map((category) => (
-            <Card
-              key={category.label}
-              className="group h-full rounded-3xl border-border/60 bg-background/80 p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-            >
-              <CardContent className="flex h-full flex-col justify-between gap-6">
-                <div className="flex items-center gap-3">
-                  <span aria-hidden="true" className="text-2xl">
-                    {category.icon}
-                  </span>
-                  <p className="text-lg font-medium lowercase">{category.label}</p>
+      <section>
+        <Link
+          href="/hackathon/impact"
+          className="block rounded-[2.5rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5B21A]/70 focus-visible:ring-offset-4 focus-visible:ring-offset-slate-50"
+        >
+          <Card className="group rounded-[2.5rem] border border-slate-200/80 bg-white/80 p-8 shadow-xl shadow-[#153B6D0d] transition hover:-translate-y-1 hover:shadow-2xl md:p-12">
+            <CardContent className="grid gap-10 p-0 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] md:items-center">
+              <div className="space-y-6">
+                <Badge className="w-fit rounded-full bg-[#153B6D] px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-sm">
+                  Hackathon
+                </Badge>
+                <div className="space-y-4">
+                  <h1 className="text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl">
+                    Hackathon Impact à HEC
+                  </h1>
+                  <p className="max-w-xl text-base text-slate-600 sm:text-lg">
+                    Samedi 13 décembre · 14:00 – 18:00 · HEC Paris, Jouy-en-Josas.
+                  </p>
                 </div>
-                <p className="text-sm text-muted-foreground">{category.description}</p>
-                {category.label === "tech" ? (
-                  <Button asChild variant="link" className="justify-start px-0 text-sm text-primary">
-                    <Link href="/hackathon/impact">view hackathon details</Link>
+              </div>
+              <Card className="rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-inner transition group-hover:shadow-lg">
+                <div className="space-y-4 text-slate-700">
+                  <p className="text-sm font-medium uppercase tracking-wide text-[#153B6D]">
+                    Hackathon Impact à HEC
+                  </p>
+                  <p className="text-sm">
+                    Samedi 13 décembre · 14:00 – 18:00 · HEC Paris, Jouy-en-Josas.
+                  </p>
+                  <Button
+                    asChild
+                    size="sm"
+                    className="rounded-full bg-[#F5B21A] px-5 text-[#153B6D] shadow-sm hover:bg-[#F5B21A]/90"
+                  >
+                    <span>Nous rejoindre</span>
                   </Button>
-                ) : (
-                  <span className="text-sm text-muted-foreground/70">more soon</span>
-                )}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                </div>
+              </Card>
+            </CardContent>
+          </Card>
+        </Link>
       </section>
 
-      <section id="about" className="grid gap-8 rounded-3xl border border-border/70 bg-background/70 p-8 shadow-sm md:grid-cols-2 md:p-12">
-        <div className="space-y-4">
-          <h2 className="text-2xl font-semibold tracking-tight">about x-hec impact</h2>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            we are students driven by the conviction that entrepreneurship can deliver meaningful solutions for society. through hackathons, labs, and storytelling events we connect talent from École Polytechnique and HEC Paris with impact-driven partners.
+      <section
+        id="a-propos"
+        className="grid gap-10 rounded-[2.5rem] border border-slate-200/80 bg-white/80 p-8 shadow-sm md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:p-12"
+      >
+        <div className="space-y-6">
+          <h2 className="text-3xl font-semibold tracking-tight text-slate-900">
+            À propos de nous
+          </h2>
+          <p className="text-base leading-relaxed text-slate-700">
+            Cette association a pour objet de fédérer, d’accompagner et de connecter les acteurs
+            engagés dans des projets à impact social et environnemental, en particulier ceux issus
+            du Master Entrepreneur X-HEC (École Polytechnique et HEC Paris).
           </p>
+          <div className="rounded-3xl border border-[#153B6D]/10 bg-[#153B6D]/5 p-6 text-slate-800 shadow-inner">
+            <p className="text-sm font-semibold uppercase tracking-wide text-[#153B6D]">
+              Mot du Président
+            </p>
+            <blockquote className="mt-3 text-base leading-relaxed">
+              Bienvenue à toutes et tous. Nous sommes convaincus que chaque idée audacieuse peut se
+              transformer en action concrète et créer un impact durable.
+            </blockquote>
+          </div>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Card className="rounded-2xl border-border/60 bg-muted/60 p-4 text-sm text-muted-foreground">
-            <p className="text-3xl font-semibold text-foreground">120+</p>
-            <p>participants engaged since 2022</p>
-          </Card>
-          <Card className="rounded-2xl border-border/60 bg-muted/60 p-4 text-sm text-muted-foreground">
-            <p className="text-3xl font-semibold text-foreground">15</p>
-            <p>student-led experiments piloted</p>
-          </Card>
+        <div className="relative h-72 w-full overflow-hidden rounded-3xl md:h-full">
+          <Image
+            src="/assets/hec-fond.jpg"
+            alt="Campus HEC au crépuscule"
+            fill
+            sizes="(min-width: 768px) 480px, 100vw"
+            className="object-cover"
+            priority
+          />
         </div>
       </section>
     </div>

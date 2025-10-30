@@ -22,7 +22,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
 
 const magicLinkSchema = z.object({
-  email: z.string().min(1, "email is required").email("enter a valid email"),
+  email: z.string().min(1, "L’email est requis.").email("Merci de fournir un email valide."),
 });
 
 type MagicLinkValues = z.infer<typeof magicLinkSchema>;
@@ -38,10 +38,10 @@ interface MagicLinkButtonProps extends ButtonLikeProps {
 }
 
 export function MagicLinkButton({
-  label = "sign in",
-  title = "sign in",
-  description = "receive a magic link in your inbox to continue",
-  successMessage = "we sent you a magic link",
+  label = "Se connecter",
+  title = "Se connecter",
+  description = "Recevez un lien magique dans votre boîte mail pour continuer.",
+  successMessage = "Lien magique envoyé",
   analyticsContext,
   ...buttonProps
 }: MagicLinkButtonProps) {
@@ -70,12 +70,12 @@ export function MagicLinkButton({
       });
 
       if (error) {
-        toast("unable to send link", { description: error.message });
+        toast("Impossible d’envoyer le lien.", { description: error.message });
         return;
       }
 
       toast(successMessage, {
-        description: "check your inbox to finish signing in",
+        description: "Consultez votre boîte mail pour finaliser la connexion.",
       });
       form.reset();
       setOpen(false);
@@ -91,7 +91,7 @@ export function MagicLinkButton({
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="lowercase">{title}</DialogTitle>
+          <DialogTitle>{title}</DialogTitle>
           <DialogDescription className="text-sm text-muted-foreground">
             {description}
           </DialogDescription>
@@ -103,15 +103,9 @@ export function MagicLinkButton({
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <Label htmlFor="magic-link-email">email</Label>
+                  <Label htmlFor="magic-link-email">Email</Label>
                   <FormControl>
-                    <Input
-                      id="magic-link-email"
-                      type="email"
-                      placeholder="you@email.com"
-                      autoComplete="email"
-                      {...field}
-                    />
+                    <Input id="magic-link-email" type="email" placeholder="prenom.nom@hec.edu" autoComplete="email" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -119,7 +113,7 @@ export function MagicLinkButton({
             />
             <DialogFooter>
               <Button type="submit" disabled={isSubmitting} className="rounded-full">
-                {isSubmitting ? "sending..." : "send magic link"}
+                {isSubmitting ? "Envoi en cours..." : "Envoyer le lien magique"}
               </Button>
             </DialogFooter>
           </form>

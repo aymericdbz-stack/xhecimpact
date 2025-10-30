@@ -8,23 +8,45 @@ export const countWords = (value: string) =>
     .split(/\s+/)
     .filter(Boolean).length;
 
-export const applicationSchema = z
+export const registrationSchema = z
   .object({
-    firstName: z.string().min(1, "first name is required"),
-    lastName: z.string().min(1, "last name is required"),
-    email: z.string().email("enter a valid email"),
-    confirmEmail: z.string().email("enter a valid email"),
-    profile: z.enum(profiles, "select a profile"),
+    firstName: z
+      .string()
+      .trim()
+      .min(1, "Le prénom est obligatoire."),
+    lastName: z
+      .string()
+      .trim()
+      .min(1, "Le nom est obligatoire."),
+    email: z
+      .string()
+      .trim()
+      .min(1, "L’email est obligatoire.")
+      .email("Merci d’indiquer un email valide."),
+    confirmEmail: z
+      .string()
+      .trim()
+      .min(1, "Merci de confirmer votre email.")
+      .email("Merci d’indiquer un email valide."),
+    profile: z.enum(profiles, {
+      errorMap: () => ({ message: "Sélectionnez un profil." }),
+    }),
     motivation: z
       .string()
-      .min(1, "tell us a bit about your motivation")
-      .refine((value) => countWords(value) <= 100, {
-        message: "motivation must be 100 words or fewer",
+      .trim()
+      .min(1, "Merci de partager votre motivation.")
+      .superRefine((value, ctx) => {
+        if (countWords(value) > 100) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "La motivation doit contenir au maximum 100 mots.",
+          });
+        }
       }),
   })
   .refine((data) => data.email === data.confirmEmail, {
-    message: "emails must match",
+    message: "Les emails doivent être identiques.",
     path: ["confirmEmail"],
   });
 
-export type ApplicationSchema = z.infer<typeof applicationSchema>;
+export type RegistrationSchema = z.infer<typeof registrationSchema>;

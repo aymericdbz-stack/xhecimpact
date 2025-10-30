@@ -4,7 +4,7 @@ export interface Subscription {
   id: string;
   created_at: string;
   updated_at?: string | null;
-  user_id: string;
+  user_id?: string | null;
   event_slug: string;
   first_name: string;
   last_name: string;

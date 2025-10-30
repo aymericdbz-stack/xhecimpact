@@ -33,23 +33,14 @@ export function HeaderAuthMenu() {
   }, [user]);
 
   if (!user) {
-    return (
-      <MagicLinkButton
-        size="sm"
-        className="rounded-full"
-        analyticsContext="header"
-        label="sign in"
-        title="sign in"
-        description="receive a magic link in your inbox to join the event"
-      />
-    );
+    return <MagicLinkButton size="sm" className="rounded-full" analyticsContext="header" />;
   }
 
   const handleSignOut = async () => {
     await supabaseClient.auth.signOut();
     router.refresh();
-    toast("signed out", {
-      description: "come back soon to discover new initiatives",
+    toast("Déconnexion effectuée.", {
+      description: "Revenez vite pour découvrir les nouvelles initiatives.",
     });
   };
 
@@ -65,13 +56,13 @@ export function HeaderAuthMenu() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end">
         <DropdownMenuLabel className="font-normal text-sm">
-          <p className="text-muted-foreground">signed in as</p>
+          <p className="text-muted-foreground">Connecté·e avec</p>
           <p className="truncate font-medium lowercase">{user.email}</p>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <Link href="/account/applications" className="flex items-center gap-2 text-sm">
-            <CircleUserRound className="h-4 w-4" /> my applications
+            <CircleUserRound className="h-4 w-4" /> Mes candidatures
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
@@ -82,7 +73,7 @@ export function HeaderAuthMenu() {
             void handleSignOut();
           }}
         >
-          <LogOut className="mr-2 h-4 w-4" /> sign out
+          <LogOut className="mr-2 h-4 w-4" /> Se déconnecter
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
