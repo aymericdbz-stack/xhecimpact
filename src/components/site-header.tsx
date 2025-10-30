@@ -7,20 +7,15 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200/70 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/70">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-6 px-4 py-4 sm:px-6">
-        <Link href="/" className="group flex items-center gap-3">
-          <span className="relative h-10 w-10 overflow-hidden rounded-full border border-slate-200 bg-white shadow-sm">
-            <Image
-              src="/assets/x-hec-impact-logo.png"
-              alt=""
-              fill
-              sizes="40px"
-              className="object-contain"
-              priority
-            />
-          </span>
-          <span className="font-semibold lowercase tracking-tight text-lg text-slate-900 transition group-hover:text-slate-700">
-            x-hec impact
-          </span>
+        <Link href="/" className="group flex items-center">
+          <Image
+            src="/assets/capture-1.png"
+            alt="Logo X-HEC Impact"
+            width={638}
+            height={391}
+            className="h-12 w-auto object-contain transition group-hover:opacity-90"
+            priority
+          />
         </Link>
         <Button
           asChild

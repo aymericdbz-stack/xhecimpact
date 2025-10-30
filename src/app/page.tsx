@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { LogoCarousel } from "@/components/logo-carousel";
 
 export default function HomePage() {
   return (
@@ -24,7 +25,7 @@ export default function HomePage() {
                     Hackathon Impact à HEC
                   </h1>
                   <p className="max-w-xl text-base text-slate-600 sm:text-lg">
-                    Samedi 13 décembre · 14:00 – 18:00 · HEC Paris, Jouy-en-Josas.
+                    Samedi 13 décembre · 08:00 – 20:00 · Climate House, Paris.
                   </p>
                 </div>
               </div>
@@ -34,7 +35,7 @@ export default function HomePage() {
                     Hackathon Impact à HEC
                   </p>
                   <p className="text-sm">
-                    Samedi 13 décembre · 14:00 – 18:00 · HEC Paris, Jouy-en-Josas.
+                    Samedi 13 décembre · 08:00 – 20:00 · Climate House, Paris.
                   </p>
                   <Button
                     asChild
@@ -49,6 +50,8 @@ export default function HomePage() {
           </Card>
         </Link>
       </section>
+
+      <LogoCarousel />
 
       <section
         id="a-propos"
@@ -75,8 +78,8 @@ export default function HomePage() {
         </div>
         <div className="relative h-72 w-full overflow-hidden rounded-3xl md:h-full">
           <Image
-            src="/assets/hec-fond.jpg"
-            alt="Campus HEC au crépuscule"
+            src="/assets/hec-fond.jpeg"
+            alt="Façade du campus HEC au crépuscule"
             fill
             sizes="(min-width: 768px) 480px, 100vw"
             className="object-cover"

@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { CalendarDays, Clock, MapPin } from "lucide-react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,25 +17,6 @@ interface RegistrationAreaProps {
   initialCount: number;
 }
 
-const participantsPreview = [
-  {
-    name: "Amina",
-    avatar: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=128&q=80",
-  },
-  {
-    name: "Julien",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=128&q=80",
-  },
-  {
-    name: "Zoé",
-    avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=128&q=80",
-  },
-  {
-    name: "Sacha",
-    avatar: "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?auto=format&fit=crop&w=128&q=80",
-  },
-];
-
 const details = [
   {
     icon: CalendarDays,
@@ -46,12 +26,12 @@ const details = [
   {
     icon: Clock,
     label: "Heure",
-    value: "14:00 – 18:00",
+    value: "08:00 – 20:00",
   },
   {
     icon: MapPin,
     label: "Lieu",
-    value: "HEC Paris, Jouy-en-Josas",
+    value: "Climate House, Paris",
   },
 ];
 
@@ -80,23 +60,14 @@ export function RegistrationArea({ eventSlug, totalSeats, initialCount }: Regist
           </div>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="flex items-center gap-4">
-            <div className="flex -space-x-3">
-              {participantsPreview.map((participant) => (
-                <Avatar
-                  key={participant.name}
-                  className="h-12 w-12 border-2 border-white shadow-sm ring-1 ring-slate-200"
-                >
-                  <AvatarImage src={participant.avatar} alt={participant.name} />
-                  <AvatarFallback className="bg-[#153B6D]/10 text-[#153B6D]">
-                    {participant.name.slice(0, 2).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-              ))}
-            </div>
-            <Badge variant="outline" className="rounded-full border-slate-200 bg-white/70 text-xs text-slate-600">
-              {currentCount} inscrit{currentCount > 1 ? "s" : ""}
-            </Badge>
+          <div className="flex items-end justify-between rounded-2xl border border-[#153B6D]/10 bg-[#153B6D]/5 px-4 py-3">
+            <p className="text-sm font-medium text-slate-600">Participants inscrits</p>
+            <span className="flex items-baseline gap-2 text-[#153B6D]">
+              <span className="text-3xl font-semibold leading-none">{currentCount}</span>
+              <span className="text-sm font-medium text-slate-500">
+                inscrit{currentCount > 1 ? "s" : ""}
+              </span>
+            </span>
           </div>
           <Separator className="bg-slate-200" />
           <p className="text-sm leading-relaxed text-slate-700">
@@ -110,7 +81,7 @@ export function RegistrationArea({ eventSlug, totalSeats, initialCount }: Regist
         <CardHeader className="space-y-1">
           <CardTitle className="text-lg font-semibold text-slate-900">Détails de l’événement</CardTitle>
           <p className="text-sm text-slate-600">
-            Samedi 13 décembre · 14:00 – 18:00 · HEC Paris, Jouy-en-Josas campus.
+            Samedi 13 décembre · 08:00 – 20:00 · Climate House, Paris.
           </p>
         </CardHeader>
         <CardContent className="space-y-6">

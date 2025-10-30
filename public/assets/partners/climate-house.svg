@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 120">
+  <rect width="600" height="120" fill="none"/>
+  <g fill="#a8733a" font-family="'Georgia', 'Times New Roman', serif" font-size="72" font-weight="500">
+    <text x="10" y="82">Climate</text>
+    <text x="320" y="82">House</text>
+  </g>
+  <path d="M278 88L278 52L260 66L260 56L278 42L296 56L296 66L278 52L278 88Z" fill="#a8733a"/>
+  <path d="M260 92L260 72L296 72L296 92Z" fill="#a8733a"/>
+</svg>

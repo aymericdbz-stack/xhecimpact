@@ -86,20 +86,153 @@ export async function POST(request: Request) {
     const applicantName = `${data.firstName} ${data.lastName}`.trim();
     const textContent =
       "Merci ! Nous avons bien reçu votre demande d’inscription. Vous recevrez un email de validation. Le délai moyen est de 3 jours pour savoir si l’inscription est validée par les organisateurs.";
-    const htmlContent = `
-      <p>Bonjour ${data.firstName.trim()} 👋</p>
-      <p>Merci ! Nous avons bien reçu votre demande d’inscription au Hackathon Impact.</p>
-      <p>Notre équipe vous enverra un email de confirmation sous 3 jours ouvrés pour valider votre participation.</p>
-      <hr />
-      <p><strong>Résumé de votre candidature :</strong></p>
-      <ul>
-        <li>Prénom : ${data.firstName.trim()}</li>
-        <li>Nom : ${data.lastName.trim()}</li>
-        <li>Email : ${normalizedEmail}</li>
-        <li>Profil : ${data.profile}</li>
-      </ul>
-      <p style="margin-top:16px;">À très vite,<br/>L’équipe x-hec impact</p>
-    `;
+    const htmlContent = `<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Welcome {{contact.PRENOM | default : ''}}</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif&family=Open+Sans&family=Roboto&family=Inter&family=Inter+Tight" rel="stylesheet" />
+  <style>
+    body,table,td,a{ -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
+    table,td{ mso-table-lspace:0pt; mso-table-rspace:0pt; }
+    img{ -ms-interpolation-mode:bicubic; display:block; border:0; outline:none; text-decoration:none; }
+    body{ margin:0; padding:0; width:100% !important; -webkit-font-smoothing:antialiased; }
+
+    .email-wrapper{ width:100%; background-color:#ffffff; padding:0; margin:0; }
+    .email-center{ max-width:600px; margin:0 auto; }
+
+    .paragraph {
+      color:#414141;
+      font-family:Arial, Helvetica, sans-serif;
+      font-size:16px;
+      line-height:1.5;
+      margin:0 0 16px 0;
+      text-align:center;
+    }
+
+    .highlighted {
+      font-size:18px;
+      font-weight:bold;
+      text-align:center;
+      color:#414141;
+    }
+
+    .h2 {
+      color:#414141;
+      font-family:Arial, Helvetica, sans-serif;
+      font-size:32px;
+      margin:0 0 12px 0;
+      line-height:1.1;
+      text-align:center;
+    }
+
+    a.text-link { color:#666666; text-decoration:underline; }
+
+    .btn {
+      display:inline-block;
+      text-decoration:none;
+      background-color:#666666;
+      color:#ffffff;
+      border-radius:4px;
+      padding:12px 18px;
+      font-family:Arial, Helvetica, sans-serif;
+      font-size:16px;
+      line-height:1;
+      border:0;
+    }
+
+    .footer-text {
+      color:#666666;
+      font-size:14px;
+      font-family:Arial, Helvetica, sans-serif;
+      margin:0 0 6px 0;
+    }
+
+    @media only screen and (max-width: 520px) {
+      .email-center { width:100% !important; padding-left:10px !important; padding-right:10px !important; }
+      .h2 { font-size:24px !important; }
+      .paragraph { font-size:15px !important; text-align:center !important; }
+      .btn { width:100% !important; box-sizing:border-box; text-align:center !important; display:block; padding-left:10px; padding-right:10px; }
+      .logo { max-width:200px !important; height:auto !important; }
+    }
+  </style>
+</head>
+<body class="email-wrapper" style="background:#ffffff;">
+
+  <center>
+    <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" class="email-center" style="max-width:600px; margin:0 auto;">
+      <tr>
+        <td style="padding:5px 30px; text-align:center;">
+          <p style="margin:0; font-family: Arial, Helvetica, sans-serif; font-size:12px; color:#858588;">
+            <a class="text-link" href="{{ mirror }}" target="_blank" style="color:#858588; text-decoration:underline;">Afficher dans le navigateur</a>
+          </p>
+        </td>
+      </tr>
+
+      <tr>
+        <td align="center" style="padding:20px 30px 10px 30px;">
+          <img src="https://img.mailinblue.com/10072574/images/content_library/original/6903829a4d7cc2e53b6cbeb7.jpeg"
+               alt="Logo" width="200" style="display:block; border:0; outline:none; text-decoration:none;" class="logo" />
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:20px 30px 10px 30px;">
+          <h2 class="h2" style="font-weight:700;">Votre inscription est bien validée&nbsp;!</h2>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:0 30px;">
+          <div style="padding-top:10px; padding-bottom:10px; text-align:center;">
+            <p class="paragraph">Nous sommes ravis de vous compter parmi nous le <strong>samedi 13 décembre</strong> !</p>
+
+            <p class="paragraph">Un petit rappel du sujet sur lequel vous aurez la chance de travailler :</p>
+
+            <p class="highlighted">Quels moyens éducatifs pour inciter à l’action environnementale&nbsp;?</p>
+
+            <p class="paragraph">On compte sur vous pour former des équipes de 4 variant les profils.</p>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:10px 30px 24px 30px; text-align:center;">
+          <a href="https://drive.google.com/file/d/13G9ftZBJWo3-GZG0UpqnzVBymhwbkd1T/view?usp=sharing"
+             target="_blank" class="btn" style="background-color:#222222; color:#ffffff; border-radius:4px; padding:12px 18px; font-family:Arial, Helvetica, sans-serif; text-decoration:none; display:inline-block;">
+             Ajouter le hackathon à votre calendrier
+          </a>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="padding:0 30px 20px 30px;">
+          <p class="paragraph">N'hésitez pas à nous contacter à la moindre question.</p>
+        </td>
+      </tr>
+
+      <!-- Footer sans logo -->
+      <tr>
+        <td style="padding:10px 30px 30px 30px; border-top:1px solid #e6e6e6; text-align:center;">
+          <p style="margin:0 0 6px 0; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#000000;">
+            Cordialement,
+          </p>
+          <p style="margin:0 0 10px 0; font-family:Arial, Helvetica, sans-serif; font-size:16px; color:#000000;">
+            <strong>L'équipe X-HEC Impact</strong>
+          </p>
+
+          <p class="footer-text" style="margin:0;">X-HEC Impact</p>
+          <p class="footer-text" style="margin:6px 0 0 0;">1 Rue de la Libération, 78350 Jouy-en-Josas</p>
+        </td>
+      </tr>
+
+    </table>
+  </center>
+
+</body>
+</html>`;
 
     await sendBrevoEmail({
       to: [{ email: normalizedEmail, name: applicantName }],

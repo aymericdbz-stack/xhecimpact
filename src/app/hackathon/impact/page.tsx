@@ -21,7 +21,7 @@ export default async function HackathonImpactPage() {
             Hackathon Impact à HEC
           </h1>
           <p className="max-w-2xl text-lg leading-relaxed text-slate-600">
-            Samedi 13 décembre · 14:00 – 18:00 · HEC Paris, Jouy-en-Josas campus.
+            Samedi 13 décembre · 08:00 – 20:00 · Climate House, Paris.
           </p>
         </div>
       </section>
