@@ -106,7 +106,7 @@ export function RegistrationForm({ eventSlug, onSuccess }: RegistrationFormProps
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-5">
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="space-y-4">
           <FormField
             control={form.control}
             name="firstName"
@@ -114,7 +114,7 @@ export function RegistrationForm({ eventSlug, onSuccess }: RegistrationFormProps
               <FormItem>
                 <FormLabel>Prénom</FormLabel>
                 <FormControl>
-                  <Input placeholder="Camille" {...field} />
+                  <Input placeholder="Camille" className="h-11" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -127,15 +127,12 @@ export function RegistrationForm({ eventSlug, onSuccess }: RegistrationFormProps
               <FormItem>
                 <FormLabel>Nom</FormLabel>
                 <FormControl>
-                  <Input placeholder="Durand" {...field} />
+                  <Input placeholder="Durand" className="h-11" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-        </div>
-
-        <div className="grid gap-4 sm:grid-cols-2">
           <FormField
             control={form.control}
             name="email"
@@ -143,7 +140,7 @@ export function RegistrationForm({ eventSlug, onSuccess }: RegistrationFormProps
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="prenom.nom@hec.edu" {...field} />
+                  <Input type="email" placeholder="prenom.nom@hec.edu" className="h-11" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -156,53 +153,56 @@ export function RegistrationForm({ eventSlug, onSuccess }: RegistrationFormProps
               <FormItem>
                 <FormLabel>Confirmer l’Email</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="Confirmez votre email" {...field} />
+                  <Input type="email" placeholder="Confirmez votre email" className="h-11" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-        </div>
-
-        <FormField
-          control={form.control}
-          name="profile"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Profil</FormLabel>
-              <Select onValueChange={field.onChange} value={field.value}>
+          <FormField
+            control={form.control}
+            name="profile"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Profil</FormLabel>
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <FormControl>
+                    <SelectTrigger className="h-11">
+                      <SelectValue placeholder="Sélectionnez un profil" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="tech">Tech</SelectItem>
+                    <SelectItem value="business">Business</SelectItem>
+                    <SelectItem value="other">Autre</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="motivation"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Motivation</FormLabel>
                 <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Sélectionnez un profil" />
-                  </SelectTrigger>
+                  <Textarea
+                    rows={5}
+                    placeholder="Partagez vos motivations en 100 mots maximum."
+                    className="resize-none"
+                    {...field}
+                  />
                 </FormControl>
-                <SelectContent>
-                  <SelectItem value="tech">Tech</SelectItem>
-                  <SelectItem value="business">Business</SelectItem>
-                  <SelectItem value="other">Autre</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="motivation"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Motivation</FormLabel>
-              <FormControl>
-                <Textarea rows={5} placeholder="Partagez vos motivations en 100 mots maximum." {...field} />
-              </FormControl>
-              <div className="text-xs text-slate-600">
-                100 mots maximum. Il reste {remainingWords} mots.
-              </div>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                <div className="text-xs text-slate-600">
+                  100 mots maximum. Il reste {remainingWords} mots.
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         <Button
           type="submit"

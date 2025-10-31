@@ -64,9 +64,7 @@ export function RegistrationArea({ eventSlug, totalSeats, initialCount }: Regist
             <p className="text-sm font-medium text-slate-600">Participants inscrits</p>
             <span className="flex items-baseline gap-2 text-[#153B6D]">
               <span className="text-3xl font-semibold leading-none">{currentCount}</span>
-              <span className="text-sm font-medium text-slate-500">
-                inscrit{currentCount > 1 ? "s" : ""}
-              </span>
+              <span className="text-sm font-medium text-slate-500">inscrits</span>
             </span>
           </div>
           <Separator className="bg-slate-200" />

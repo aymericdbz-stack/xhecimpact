@@ -1,75 +1,19 @@
-"use client";
-
-import { useState, useTransition } from "react";
-
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
+import { Mail } from "lucide-react";
 
 export function SiteFooter() {
-  const [email, setEmail] = useState("");
-  const [isPending, startTransition] = useTransition();
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const trimmed = email.trim();
-
-    if (!trimmed) {
-      toast("Veuillez saisir un email.");
-      return;
-    }
-
-    startTransition(async () => {
-      try {
-        const response = await fetch("/api/contact", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: trimmed }),
-        });
-
-        if (!response.ok) {
-          throw new Error("Erreur lors de l’envoi");
-        }
-
-        toast("Message envoyé.");
-        setEmail("");
-      } catch (error) {
-        console.error(error);
-        toast("Impossible d’envoyer le message.", {
-          description: "Réessayez dans quelques instants.",
-        });
-      }
-    });
-  };
-
   return (
     <footer className="mt-auto border-t border-[#0f2948] bg-[#153B6D] text-white">
-      <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-4 px-4 py-6 sm:flex-row sm:gap-6 sm:px-6">
+      <div className="mx-auto flex w-full max-w-6xl flex-col items-start justify-between gap-3 px-4 py-6 sm:flex-row sm:items-center sm:gap-6 sm:px-6">
         <span className="text-sm font-medium uppercase tracking-wide text-white/90">
           Contactez-nous
         </span>
-        <form
-          onSubmit={handleSubmit}
-          className="flex w-full max-w-md items-center gap-2"
-          noValidate
+        <a
+          href="mailto:aymeric.desbazeille@hec.edu"
+          className="flex items-center gap-3 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5B21A]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#153B6D]"
         >
-          <Input
-            type="email"
-            name="email"
-            placeholder="Entrez votre email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            className="h-10 rounded-full border-white/40 bg-white/10 text-white placeholder:text-white/70 focus-visible:ring-[#F5B21A]"
-          />
-          <Button
-            type="submit"
-            disabled={isPending}
-            className="h-10 rounded-full bg-[#F5B21A] px-4 text-sm font-semibold text-[#153B6D] hover:bg-[#F5B21A]/90 focus-visible:ring-[#F5B21A]"
-          >
-            {isPending ? "Envoi..." : "Envoyer"}
-          </Button>
-        </form>
+          <Mail className="h-4 w-4" aria-hidden="true" />
+          <span>aymeric.desbazeille@hec.edu</span>
+        </a>
       </div>
     </footer>
   );
