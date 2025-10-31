@@ -27,7 +27,7 @@ const partnerLogos = [
   },
   {
     name: "École Polytechnique",
-    src: "/assets/logos/ecole-polytechnique.png",
+    src: "/assets/logos/polytechnique.png",
     width: 220,
     height: 120,
   },
