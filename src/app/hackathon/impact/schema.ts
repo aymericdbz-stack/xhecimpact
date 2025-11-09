@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const profiles = ["tech", "business", "other"] as const;
+export const teamOptions = ["yes", "no"] as const;
 
 export const countWords = (value: string) =>
   value
@@ -31,6 +32,13 @@ export const registrationSchema = z
     profile: z.enum(profiles, {
       message: "Sélectionnez un profil.",
     }),
+    hasTeam: z.enum(teamOptions, {
+      message: "Indiquez si vous avez une équipe.",
+    }),
+    teamMembers: z
+      .string()
+      .trim()
+      .optional(),
     motivation: z
       .string()
       .trim()
@@ -43,6 +51,17 @@ export const registrationSchema = z
           });
         }
       }),
+  })
+  .superRefine((data, ctx) => {
+    if (data.hasTeam === "yes") {
+      if (!data.teamMembers || data.teamMembers.length === 0) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Merci d’indiquer les membres de votre équipe.",
+          path: ["teamMembers"],
+        });
+      }
+    }
   })
   .refine((data) => data.email === data.confirmEmail, {
     message: "Les emails doivent être identiques.",

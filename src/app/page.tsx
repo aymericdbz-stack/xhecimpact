@@ -16,7 +16,6 @@ const teamFaces = [
   { name: "Marie-Lou Gosselet", src: "/assets/team/gosselet-marie-lou.jpg" },
   { name: "Vianney Hartmann", src: "/assets/team/hartmann-vianney.jpg" },
   { name: "Adama Kanate", src: "/assets/team/kanate-adama.jpg" },
-  { name: "Florentin Koch", src: "/assets/team/koch-florentin.jpg" },
   { name: "Sacha Lellouche", src: "/assets/team/lellouche-sacha.jpg" },
   { name: "Augustin Liang", src: "/assets/team/liang-augustin.jpg" },
   { name: "Amelie Prudhomme", src: "/assets/team/prudhomme-amelie.jpg" },
@@ -88,37 +87,63 @@ export default function HomePage() {
                 <p className="text-sm font-semibold uppercase tracking-wide text-[#153B6D]">
                   Mot du Président
                 </p>
-                <blockquote className="mt-3 text-base leading-relaxed">
-                  Bienvenue à toutes et tous. Nous sommes convaincus que chaque idée audacieuse peut se
-                  transformer en action concrète et créer un impact durable.
-                </blockquote>
-                <div className="flex w-full items-center justify-center">
-                  <Image
-                    src="/assets/social-environmental.jpg"
-                    alt="Étudiants travaillant sur un projet à impact social et environnemental"
-                    width={240}
-                    height={130}
-                    className="h-auto w-40 object-contain sm:w-48"
-                  />
+                <div className="flex justify-center">
+                  <div className="mt-2 flex h-36 w-36 items-center justify-center overflow-hidden rounded-full border border-slate-200 bg-white shadow-sm">
+                    <Image
+                      src="/assets/team/koch-florentin.jpg"
+                      alt="Florentin Koch"
+                      width={144}
+                      height={144}
+                      className="h-full w-full object-cover"
+                      sizes="144px"
+                    />
+                  </div>
                 </div>
+                <blockquote className="mt-3 text-base leading-relaxed space-y-4">
+                  <p>«Deux motivations m’ont conduit à rejoindre le master X-HEC Entrepreneurs :</p>
+                  <ul className="list-disc pl-6 space-y-1">
+                    <li>Mon engagement pour l’impact social, nourri par mes convictions, expériences et missions humanitaires.</li>
+                    <li>Mon intuition que l’entrepreneuriat en est le levier le plus efficace.</li>
+                  </ul>
+
+                  <p>J’ai ainsi fondé X-HEC Impact, une association dédiée à la promotion de projets à impact positif.</p>
+
+                  <p>Constatant le décalage entre les 17 Objectifs de développement durable (ODD) de l’ONU et leur faible couverture dans les hackathons, nous avons créé ex nihilo un nouveau format centré sur un ODD encore inexploré.</p>
+
+                  <p>Notre ambition : en faire un laboratoire d’innovation et d’expérimentation.<br/>
+                  Rendez-vous le 13 décembre 2025 pour la première édition, avec l’impatience de découvrir les idées qui y écloront.»</p>
+
+                  <p><em>– Florentin Koch</em></p>
+                </blockquote>
               </div>
             </div>
-            <div className="rounded-3xl border border-slate-200 bg-white/70 p-4 shadow-inner">
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-                {teamFaces.map((member) => (
-                  <div key={member.src} className="flex items-center justify-center">
-                    <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-full border border-slate-200 bg-white shadow-sm">
-                      <Image
-                        src={member.src}
-                        alt={member.name}
-                        width={96}
-                        height={96}
-                        className={`h-full w-full object-cover ${member.className ?? ""}`}
-                        sizes="96px"
-                      />
+            <div className="flex h-full flex-col rounded-3xl border border-slate-200 bg-white/70 p-6 shadow-inner">
+              <div className="flex flex-1 items-start justify-center">
+                <div className="grid grid-cols-3 gap-6">
+                  {teamFaces.map((member) => (
+                    <div key={member.src} className="flex items-center justify-center">
+                      <div className="flex h-36 w-36 items-center justify-center overflow-hidden rounded-full border border-slate-200 bg-white shadow-sm">
+                        <Image
+                          src={member.src}
+                          alt={member.name}
+                          width={144}
+                          height={144}
+                          className={`h-full w-full object-cover ${member.className ?? ""}`}
+                          sizes="144px"
+                        />
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
+              </div>
+              <div className="mt-8 flex w-full items-center justify-center">
+                <Image
+                  src="/assets/social-environmental.jpg"
+                  alt="Illustration symbolisant les projets à impact social et environnemental"
+                  width={240}
+                  height={130}
+                  className="h-auto w-40 object-contain sm:w-48"
+                />
               </div>
             </div>
           </div>

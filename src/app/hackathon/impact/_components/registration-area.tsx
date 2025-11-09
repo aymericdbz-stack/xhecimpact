@@ -6,7 +6,6 @@ import { CalendarDays, Clock, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { useRemainingSeats } from "@/hooks/use-remaining-seats";
 
 import { RegistrationForm } from "./registration-form";
@@ -37,7 +36,7 @@ const details = [
 
 export function RegistrationArea({ eventSlug, totalSeats, initialCount }: RegistrationAreaProps) {
   const [formVisible, setFormVisible] = useState(false);
-  const { remainingSeats, currentCount, setCount } = useRemainingSeats({
+  const { remainingSeats, setCount } = useRemainingSeats({
     eventSlug,
     totalSeats,
     initialCount,
@@ -52,22 +51,14 @@ export function RegistrationArea({ eventSlug, totalSeats, initialCount }: Regist
       <Card className="rounded-[2rem] border border-slate-200/80 bg-white/90 shadow-sm">
         <CardHeader className="space-y-1">
           <CardTitle className="text-lg font-semibold text-slate-900">Participants</CardTitle>
-          <div className="flex items-center gap-2 text-sm text-slate-600">
+          <div className="flex items-center gap-3 text-sm text-slate-600">
             <span>Places restantes :</span>
-            <Badge className="rounded-full bg-[#F5B21A] px-3 py-1 text-xs font-semibold text-[#153B6D]">
+            <Badge className="rounded-full bg-[#F5B21A] px-6 py-2 text-base font-semibold text-[#153B6D]">
               {remainingSeats}
             </Badge>
           </div>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div className="flex items-end justify-between rounded-2xl border border-[#153B6D]/10 bg-[#153B6D]/5 px-4 py-3">
-            <p className="text-sm font-medium text-slate-600">Participants inscrits</p>
-            <span className="flex items-baseline gap-2 text-[#153B6D]">
-              <span className="text-3xl font-semibold leading-none">{currentCount}</span>
-              <span className="text-sm font-medium text-slate-500">inscrits</span>
-            </span>
-          </div>
-          <Separator className="bg-slate-200" />
           <p className="text-sm leading-relaxed text-slate-700">
             Nous accueillons des étudiants de toutes disciplines. Apportez votre curiosité, votre énergie créative
             et votre envie de prototyper des idées audacieuses.

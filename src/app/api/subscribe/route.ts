@@ -13,6 +13,8 @@ const requestSchema = z.object({
   lastName: z.string().trim().min(1),
   email: z.string().trim().email(),
   profile: z.enum(profiles),
+  hasTeam: z.boolean(),
+  teamMembers: z.string().trim().nullable().optional(),
   motivation: z.string().trim().min(1),
 });
 
@@ -42,6 +44,14 @@ export async function POST(request: Request) {
     }
 
     const trimmedMotivation = data.motivation.trim();
+    const normalizedTeamMembers = data.hasTeam ? (data.teamMembers ?? "").trim() : null;
+
+    if (data.hasTeam && (!normalizedTeamMembers || normalizedTeamMembers.length === 0)) {
+      return NextResponse.json(
+        { message: "Merci d’indiquer les membres de votre équipe." },
+        { status: 400 },
+      );
+    }
 
     if (countWords(trimmedMotivation) > 100) {
       return NextResponse.json({ message: "La motivation doit contenir au maximum 100 mots." }, { status: 400 });
@@ -73,6 +83,8 @@ export async function POST(request: Request) {
       last_name: data.lastName.trim(),
       email: normalizedEmail,
       profile: data.profile,
+      has_team: data.hasTeam,
+      team_members: normalizedTeamMembers,
       motivation: trimmedMotivation,
     });
 
@@ -84,8 +96,6 @@ export async function POST(request: Request) {
     const count = await getSubscriptionCount(eventSlug);
 
     const applicantName = `${data.firstName} ${data.lastName}`.trim();
-    const firstName = data.firstName.trim();
-    const safeFirstName = firstName.length > 0 ? firstName : "";
     const mirrorUrl =
       process.env.SITE_PUBLIC_URL ??
       "https://x-hec-impact.fr/hackathon/impact";
