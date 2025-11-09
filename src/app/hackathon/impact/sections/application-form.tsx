@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -30,12 +30,21 @@ export function ApplicationForm({ email, defaultFirstName, defaultLastName, onSu
       confirmEmail: email,
       profile: "tech",
       motivation: "",
+      hasTeam: "no",
+      teamMembers: "",
     },
   });
 
+  const hasTeamValue = form.watch("hasTeam");
   const motivationValue = form.watch("motivation");
   const wordCount = useMemo(() => countWords(motivationValue ?? ""), [motivationValue]);
   const remainingWords = Math.max(0, 100 - wordCount);
+
+  useEffect(() => {
+    if (hasTeamValue === "no") {
+      form.setValue("teamMembers", "");
+    }
+  }, [form, hasTeamValue]);
 
   const handleSubmit = async (values: ApplicationSchema) => {
     setIsSubmitting(true);
@@ -45,7 +54,12 @@ export function ApplicationForm({ email, defaultFirstName, defaultLastName, onSu
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...values, motivation: values.motivation.trim() }),
+        body: JSON.stringify({
+          ...values,
+          hasTeam: values.hasTeam === "yes",
+          teamMembers: values.hasTeam === "yes" ? values.teamMembers?.trim() ?? "" : null,
+          motivation: values.motivation.trim(),
+        }),
       });
 
       if (response.status === 409) {
@@ -153,8 +167,46 @@ export function ApplicationForm({ email, defaultFirstName, defaultLastName, onSu
               </Select>
               <FormMessage />
             </FormItem>
+            )}
+        />
+
+        <FormField
+          control={form.control}
+          name="hasTeam"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>do you already have a team?</FormLabel>
+              <Select onValueChange={field.onChange} value={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="select an option" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="yes">yes</SelectItem>
+                  <SelectItem value="no">no</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
           )}
         />
+
+        {hasTeamValue === "yes" && (
+          <FormField
+            control={form.control}
+            name="teamMembers"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>who else is on your team?</FormLabel>
+                <FormControl>
+                  <Input placeholder="list first and last names" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
 
         <FormField
           control={form.control}

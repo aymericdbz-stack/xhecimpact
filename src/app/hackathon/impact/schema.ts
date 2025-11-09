@@ -68,4 +68,7 @@ export const registrationSchema = z
     path: ["confirmEmail"],
   });
 
+export const applicationSchema = registrationSchema;
+
 export type RegistrationSchema = z.infer<typeof registrationSchema>;
+export type ApplicationSchema = z.infer<typeof applicationSchema>;
