@@ -29,6 +29,10 @@ export const registrationSchema = z
       .trim()
       .min(1, "Merci de confirmer votre email.")
       .email("Merci d’indiquer un email valide."),
+    specialDiet: z
+      .string()
+      .trim()
+      .max(120, "Merci de limiter votre réponse à 120 caractères."),
     profile: z.enum(profiles, {
       message: "Sélectionnez un profil.",
     }),

@@ -35,6 +35,7 @@ export function RegistrationForm({ eventSlug, onSuccess }: RegistrationFormProps
       lastName: "",
       email: "",
       confirmEmail: "",
+      specialDiet: "",
       profile: "tech",
       hasTeam: "no",
       teamMembers: "",
@@ -56,6 +57,10 @@ export function RegistrationForm({ eventSlug, onSuccess }: RegistrationFormProps
   const handleSubmit = async (values: RegistrationSchema) => {
     setIsSubmitting(true);
     try {
+      const normalizedEmail = values.email.trim().toLowerCase();
+      const trimmedSpecialDiet = values.specialDiet?.trim() ?? "";
+      const normalizedSpecialDiet = trimmedSpecialDiet.length > 0 ? trimmedSpecialDiet : null;
+
       const response = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -63,11 +68,12 @@ export function RegistrationForm({ eventSlug, onSuccess }: RegistrationFormProps
           eventSlug,
           firstName: values.firstName.trim(),
           lastName: values.lastName.trim(),
-          email: values.email.trim().toLowerCase(),
+          email: normalizedEmail,
           profile: values.profile,
           hasTeam: values.hasTeam === "yes",
           teamMembers: values.hasTeam === "yes" ? values.teamMembers?.trim() ?? "" : null,
           motivation: values.motivation.trim(),
+          specialDiet: normalizedSpecialDiet,
         }),
       });
 
@@ -165,6 +171,23 @@ export function RegistrationForm({ eventSlug, onSuccess }: RegistrationFormProps
                 <FormLabel>Confirmer l’Email</FormLabel>
                 <FormControl>
                   <Input type="email" placeholder="Confirmez votre email" className="h-11" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="specialDiet"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Régime particulier</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Précisez allergies ou régimes (facultatif)"
+                    className="h-11"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

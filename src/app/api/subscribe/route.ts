@@ -15,6 +15,7 @@ const requestSchema = z.object({
   profile: z.enum(profiles),
   hasTeam: z.boolean(),
   teamMembers: z.string().trim().nullable().optional(),
+  specialDiet: z.string().trim().max(120).nullable().optional(),
   motivation: z.string().trim().min(1),
 });
 
@@ -45,6 +46,7 @@ export async function POST(request: Request) {
 
     const trimmedMotivation = data.motivation.trim();
     const normalizedTeamMembers = data.hasTeam ? (data.teamMembers ?? "").trim() : null;
+    const normalizedSpecialDiet = data.specialDiet?.length ? data.specialDiet : null;
 
     if (data.hasTeam && (!normalizedTeamMembers || normalizedTeamMembers.length === 0)) {
       return NextResponse.json(
@@ -86,6 +88,7 @@ export async function POST(request: Request) {
       has_team: data.hasTeam,
       team_members: normalizedTeamMembers,
       motivation: trimmedMotivation,
+      special_diet: normalizedSpecialDiet,
     });
 
     if (insertError) {
