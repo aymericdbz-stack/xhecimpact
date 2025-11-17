@@ -60,8 +60,12 @@ export function RegistrationArea({ eventSlug, totalSeats, initialCount }: Regist
         </CardHeader>
         <CardContent className="space-y-6">
           <p className="text-sm leading-relaxed text-slate-700">
-            Nous accueillons des étudiants de toutes disciplines. Apportez votre curiosité, votre énergie créative
-            et votre envie de prototyper des idées audacieuses.
+          Nous accueillons des étudiants de toutes disciplines. Apportez votre curiosité, votre énergie créative
+          et votre envie de prototyper des idées audacieuses.<br /><br />
+          <strong>
+            Quant à la création des équipes, nous reviendrons vers début décembre pour vous aider à constituer
+            ou à agrandir vos teams.
+          </strong>
           </p>
         </CardContent>
       </Card>
