@@ -40,9 +40,13 @@ export default function HomePage() {
                     Hackathon
                   </Badge>
                   <div className="space-y-4">
-                    <h1 className="text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl">
-                      Hackathon Impact de X-HEC
-                    </h1>
+                  <h1 className="text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl">
+                    Hackathon Impact
+                    <br />
+                    <span className="block text-2xl sm:text-3xl font-normal">
+                      X-HEC Entrepreneurs
+                    </span>
+                  </h1>
                     <p className="max-w-xl text-base text-slate-600 sm:text-lg">
                       Samedi 13 décembre · 08:00 – 20:00 · Climate House, Paris.
                     </p>
@@ -50,9 +54,10 @@ export default function HomePage() {
                 </div>
                 <Card className="rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-inner transition group-hover:shadow-lg">
                   <div className="space-y-4 text-slate-700">
-                    <p className="text-sm font-medium uppercase tracking-wide text-[#153B6D]">
-                      Hackathon Impact de X-HEC
-                    </p>
+                    <h1 className="text-4xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+                      Hackathon Impact
+                      <br />
+                    </h1>
                     <p className="text-sm">
                       Samedi 13 décembre · 08:00 – 20:00 · Climate House, Paris.
                     </p>

@@ -9,6 +9,39 @@ import { getSubscriptionCount } from "@/lib/supabase/admin";
 const EVENT_SLUG = "impact-hackathon-13-dec";
 const TOTAL_SEATS = 80;
 
+const PROGRAM_SCHEDULE = [
+  {
+    time: "8h00",
+    title: "Accueil & Keynote",
+    description: "Petit-déj, présentation & formation des équipes",
+  },
+  {
+    time: "9h00",
+    title: "Lancement",
+    description: "Brainstorm, mentorat & cadrage du projet",
+  },
+  {
+    time: "12h00",
+    title: "Déjeuner",
+    description: "Pause rapide, ambiance haute intensité",
+  },
+  {
+    time: "13h00",
+    title: "Prototypage",
+    description: "Travail en équipe, mentorat, UX & design. Finalisation du prototype et préparation du pitch",
+  },
+  {
+    time: "18h15",
+    title: "Pitchs finaux",
+    description: "Présentation devant les jurys, sélection des 5 meilleures équipes",
+  },
+  {
+    time: "20h00",
+    title: "Cocktail de clôture",
+    description: "Remise des prix & networking avec les partenaires",
+  },
+];
+
 export default async function HackathonImpactPage() {
   const currentCount = await getSubscriptionCount(EVENT_SLUG);
 
@@ -21,7 +54,11 @@ export default async function HackathonImpactPage() {
               Hackathon
             </Badge>
             <h1 className="text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl">
-              Hackathon Impact de X-HEC
+              Hackathon Impact
+              <br />
+              <span className="block text-2xl sm:text-3xl font-normal">
+                X-HEC Entrepreneurs
+              </span>
             </h1>
             <p className="max-w-2xl text-lg leading-relaxed text-slate-600">
               Samedi 13 décembre · 08:00 – 20:00 · Climate House, Paris.
@@ -37,6 +74,49 @@ export default async function HackathonImpactPage() {
               priority
             />
           </div>
+        </div>
+      </section>
+
+      <section className="rounded-[2.5rem] border border-slate-200/80 bg-gradient-to-br from-white via-white to-[#153B6D0a] p-8 text-center shadow-lg shadow-[#153B6D0d] md:p-12">
+        <h2 className="mt-3 text-2xl font-semibold text-slate-900 sm:text-[1.5rem]">
+          Thème
+        </h2>
+        <p className="mt-3 text-2xl text-[#153B6D] sm:text-[1.75rem]">
+          Quels moyens éducatifs pour inciter à l’action environnementale&nbsp;?
+        </p>
+      </section>
+
+      <section className="rounded-[2.5rem] border border-slate-200/80 bg-white/80 p-10 shadow-lg shadow-[#153B6D0d] md:p-16">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="space-y-2">
+            <h2 className="text-2xl font-semibold text-slate-900">Programme</h2>
+          </div>
+        </div>
+        <div className="mt-8 space-y-2">
+          {PROGRAM_SCHEDULE.map((slot, index) => (
+            <div
+              key={`${slot.time}-${slot.title}`}
+              className="grid gap-1 rounded-2xl border border-slate-100 bg-white/70 p-2 shadow-sm transition hover:shadow-md sm:grid-cols-[70px_minmax(0,1fr)]"
+            >
+              <div className="text-lg font-semibold text-[#153B6D] leading-tight">
+                {slot.time}
+              </div>
+              <div className="leading-tight">
+                <p className="text-sm font-semibold text-slate-900 leading-tight">
+                  {slot.title}
+                </p>
+                <p className="text-[10px] text-slate-600 leading-snug">
+                  {slot.description}
+                </p>
+              </div>
+
+              {index !== PROGRAM_SCHEDULE.length - 1 && (
+                <div className="pointer-events-none sm:col-span-2" aria-hidden>
+                  <div className="mt-2 border-t border-dashed border-slate-200" />
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </section>
 
