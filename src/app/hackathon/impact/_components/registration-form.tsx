@@ -181,10 +181,10 @@ export function RegistrationForm({ eventSlug, onSuccess }: RegistrationFormProps
             name="specialDiet"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Régime particulier</FormLabel>
+                <FormLabel>Régime particulier (Préciser si aucun)</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Précisez allergies ou régimes (facultatif)"
+                    placeholder="Précisez allergies ou régimes"
                     className="h-11"
                     {...field}
                   />
