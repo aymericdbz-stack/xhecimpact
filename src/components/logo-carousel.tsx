@@ -34,6 +34,12 @@ const partnerLogos = [
   {
     name: "Climate House",
     src: "/assets/logos/climate-house.png",
+    width: 552,
+    height: 452,
+  },
+  {
+    name: "EFCI",
+    src: "/assets/logos/efci.png",
     width: 240,
     height: 120,
   },
