@@ -6,6 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { LogoCarousel } from "@/components/logo-carousel";
 
+const featuredFaces = [
+  { alt: "Portrait additionnel de l'équipe 1", src: "/assets/team/visage-bis-1.png" },
+  { alt: "Portrait additionnel de l'équipe 2", src: "/assets/team/visage-bis-2.png" },
+];
+
 const teamFaces = [
   { name: "Cassandre Arminjon", src: "/assets/team/arminjon-cassandre.jpg", className: "scale-110" },
   { name: "Macky Dabo", src: "/assets/team/dabo-macky.jpg", className: "scale-110" },
@@ -123,7 +128,23 @@ export default function HomePage() {
               </div>
             </div>
             <div className="flex h-full flex-col rounded-3xl border border-slate-200 bg-white/70 p-6 shadow-inner">
-              <div className="flex flex-1 items-start justify-center">
+              <div className="grid gap-6 sm:grid-cols-2">
+                {featuredFaces.map((face) => (
+                  <div key={face.src} className="flex items-center justify-center">
+                    <div className="flex h-40 w-40 items-center justify-center overflow-hidden rounded-full bg-white shadow-sm">
+                      <Image
+                        src={face.src}
+                        alt={face.alt}
+                        width={200}
+                        height={200}
+                        className="h-full w-full object-cover"
+                        sizes="200px"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-10 flex flex-1 items-start justify-center">
                 <div className="grid grid-cols-3 gap-6">
                   {teamFaces.map((member) => (
                     <div key={member.src} className="flex items-center justify-center">
@@ -140,15 +161,6 @@ export default function HomePage() {
                     </div>
                   ))}
                 </div>
-              </div>
-              <div className="mt-8 flex w-full items-center justify-center">
-                <Image
-                  src="/assets/social-environmental.jpg"
-                  alt="Illustration symbolisant les projets à impact social et environnemental"
-                  width={240}
-                  height={130}
-                  className="h-auto w-40 object-contain sm:w-48"
-                />
               </div>
             </div>
           </div>
