@@ -91,7 +91,8 @@ export default function HomePage() {
               <p className="text-base leading-relaxed text-slate-700">
                 Cette association a pour objet de fédérer, d’accompagner et de connecter les acteurs
                 engagés dans des projets à impact social et environnemental, en particulier ceux issus
-                du Master Entrepreneur X-HEC (École Polytechnique et HEC Paris).
+                du Master Entrepreneur X-HEC (École Polytechnique et HEC Paris), en collaboration avec les 
+                Entrepreneurs Français-Chinois pour l'Innovation (EFCI).
               </p>
               <div className="flex flex-col gap-6 rounded-3xl border border-[#153B6D]/10 bg-[#153B6D]/5 p-6 text-slate-800 shadow-inner">
                 <p className="text-sm font-semibold uppercase tracking-wide text-[#153B6D]">
