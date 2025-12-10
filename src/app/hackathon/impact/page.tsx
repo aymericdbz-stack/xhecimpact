@@ -61,8 +61,8 @@ export default async function HackathonImpactPage() {
           </div>
           <div className="relative h-48 overflow-hidden rounded-3xl border border-slate-200 bg-white/80 shadow-inner sm:h-56 md:h-full">
             <Image
-              src="/assets/climate-house-card-2.jpg"
-              alt="Façade de la Climate House"
+              src="/assets/mouzaia.jpg"
+              alt="Façade de Mouzaia"
               fill
               sizes="(min-width: 768px) 320px, 100vw"
               className="object-cover"
