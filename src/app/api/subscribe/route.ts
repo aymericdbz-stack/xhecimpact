@@ -104,7 +104,7 @@ export async function POST(request: Request) {
       "https://x-hec-impact.fr/hackathon/impact";
 
     const textContent =
-      "Merci ! Votre inscription au Hackathon Impact est confirmée : rendez-vous samedi 13 décembre de 08:00 à 20:00 à la Climate House, Paris.";
+      "Merci ! Votre inscription au Hackathon Impact est confirmée : rendez-vous samedi 13 décembre de 08:30 à 20:00 à la Grande salle à Mouzaïa - 62 Rue de Mouzaïa, 75019 Paris.";
 
     const htmlContent = `<!doctype html>
 <html lang="fr">

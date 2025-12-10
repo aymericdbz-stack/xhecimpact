@@ -53,7 +53,7 @@ export default function HomePage() {
                     </span>
                   </h1>
                     <p className="max-w-xl text-base text-slate-600 sm:text-lg">
-                      Samedi 13 décembre · 08:00 – 20:00 · Climate House, Paris.
+                      Samedi 13 décembre · 08:30 – 20:00 · Grande salle à Mouzaïa - 62 Rue de Mouzaïa, 75019 Paris.
                     </p>
                   </div>
                 </div>
@@ -64,7 +64,7 @@ export default function HomePage() {
                       <br />
                     </h1>
                     <p className="text-sm">
-                      Samedi 13 décembre · 08:00 – 20:00 · Climate House, Paris.
+                      Samedi 13 décembre · 08:30 – 20:00 · Grande salle à Mouzaïa - 62 Rue de Mouzaïa, 75019 Paris.
                     </p>
                     <Button
                       asChild

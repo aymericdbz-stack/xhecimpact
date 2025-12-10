@@ -11,7 +11,7 @@ const TOTAL_SEATS = 80;
 
 const PROGRAM_SCHEDULE = [
   {
-    time: "8h00",
+    time: "8h30",
     title: "Accueil & Keynote",
     description: "Petit-déj, présentation & formation des équipes",
   },
@@ -35,11 +35,6 @@ const PROGRAM_SCHEDULE = [
     title: "Pitchs finaux",
     description: "Présentation devant les jurys, sélection des 5 meilleures équipes",
   },
-  {
-    time: "20h00",
-    title: "Cocktail de clôture",
-    description: "Remise des prix & networking avec les partenaires",
-  },
 ];
 
 export default async function HackathonImpactPage() {
@@ -61,12 +56,12 @@ export default async function HackathonImpactPage() {
               </span>
             </h1>
             <p className="max-w-2xl text-lg leading-relaxed text-slate-600">
-              Samedi 13 décembre · 08:00 – 20:00 · Climate House, Paris.
+              Samedi 13 décembre · 08:30 – 20:00 · Grande salle à Mouzaïa - 62 Rue de Mouzaïa, 75019 Paris.
             </p>
           </div>
           <div className="relative h-48 overflow-hidden rounded-3xl border border-slate-200 bg-white/80 shadow-inner sm:h-56 md:h-full">
             <Image
-              src="/assets/climate-house-card.jpg"
+              src="/assets/climate-house-card-2.jpg"
               alt="Façade de la Climate House"
               fill
               sizes="(min-width: 768px) 320px, 100vw"

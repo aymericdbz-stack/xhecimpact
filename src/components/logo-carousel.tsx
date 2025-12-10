@@ -33,7 +33,7 @@ const partnerLogos = [
   },
   {
     name: "Climate House",
-    src: "/assets/logos/climate-house.png",
+    src: "/assets/logos/mouzaia.png",
     width: 552,
     height: 452,
   },

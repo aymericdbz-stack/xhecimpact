@@ -25,12 +25,12 @@ const details = [
   {
     icon: Clock,
     label: "Heure",
-    value: "08:00 – 20:00",
+    value: "08:30 – 20:00",
   },
   {
     icon: MapPin,
     label: "Lieu",
-    value: "Climate House, Paris",
+    value: "Grande salle à Mouzaïa - 62 Rue de Mouzaïa, 75019 Paris",
   },
 ];
 
@@ -74,7 +74,7 @@ export function RegistrationArea({ eventSlug, totalSeats, initialCount }: Regist
         <CardHeader className="space-y-1">
           <CardTitle className="text-lg font-semibold text-slate-900">Détails de l’événement</CardTitle>
           <p className="text-sm text-slate-600">
-            Samedi 13 décembre · 08:00 – 20:00 · Climate House, Paris.
+            Samedi 13 décembre · 08:30 – 20:00 · 62 Rue de Mouzaïa, 75019 Paris.
           </p>
         </CardHeader>
         <CardContent className="space-y-6">
